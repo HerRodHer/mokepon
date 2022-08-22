@@ -15,6 +15,7 @@ function seleccionarMascotaJugador()
     let inputPedos = document.getElementById('pedos')
 
     let mascotaSeleccionada = "Ninguna"
+    let spanMascotaJugador = document.getElementById('mascota-jugador')
 
     const inputs = [ inputHipoperro, inputCapipepo, inputRatigueya, inputLangosucio, inputTucanazo, inputPedos ]
     const mascotas = [ "Hipoperro", "Capipepo", "Ratigueya", "Langosucio", "Tucanazo", 'Pedos' ]
@@ -24,6 +25,7 @@ function seleccionarMascotaJugador()
         if (inputs[i].checked)
         {
             mascotaSeleccionada = mascotas[i]
+            spanMascotaJugador.innerHTML = mascotaSeleccionada
             break
         }
     }
