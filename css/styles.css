@@ -17,6 +17,10 @@ h1
     margin: 1em auto;
     font-style:oblique;
 }
+h2
+{
+    color: rgb(44, 80, 169);
+}
 
 #div1 
 {
