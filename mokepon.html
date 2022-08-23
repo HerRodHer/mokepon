@@ -1,59 +1,61 @@
-<!DOCTYPE html>
+<!DOCTYPE html5>
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
         <title>MOKEPON!</title>
+        <link rel="stylesheet" href="./css/styles.css">
         <script src="./js/codigo.js"></script>
     </head>
     <body>
         <h1>MOKEPON! 🔥💧🌱</h1>
 
-        <section id="seleccionar-mascota">
-            <h2>Elige tu mascota:</h2>
-
-            <label for="hipoperro">Hipoperro</label>
-            <input type="radio" name="mascota" id="hipoperro" />
-            <label for="capipepo">Capipepo</label>
-            <input type="radio" name="mascota" id="capipepo" />
-            <label for="ratigueya">Ratigueya</label>
-            <input type="radio" name="mascota" id="ratigueya" />
-            <label for="langosucio">Langosucio</label>
-            <input type="radio" name="mascota" id="langosucio" />
-            <label for="tucanazo">Tucanazo</label>
-            <input type="radio" name="mascota" id="tucanazo" />
-            <label for="pedos">Pedos</label>
-            <input type="radio" name="mascota" id="pedos" />
-
-            <button id="boton-mascota">Selecionar</button>
-        </section>
-
-        <section id="seleccionar-ataque">
-            <h2>Elige tu ataque:</h2>
-
-            <p>Tu mascota <span id="mascota-jugador"></span> tiene <span>3</span> vidas</p>
-            <p>La mascota enemiga <span id="mascota-enemigo"></span>tiene <span>3</span> vidas</p>
-
-            <p>
-                <button id="boton-fuego">FUEGO 🔥</button>
-                <button id="boton-agua">AGUA 💧</button>
-                <button id="boton-tierra">TIERRA 🌱</button>
-            </p>
-        </section>
-
-        <section id="mensajes">
-            <p>Tu mascota atacó con FUEGO, la mascota enemiga atacó con TIERRA - GANASTE 🎉</p>
-        </section>
-
-        <section id="reiniciar">
-            <button id="boton-reiniciar">Reiniciar</button>
-        </section>
+        <div id="div1">
+            <section id="seleccionar-mascota">
+                <h2>Elige tu mascota:</h2>
+    
+                <label for="hipoperro">Hipoperro</label>
+                <input type="radio" name="mascota" id="hipoperro" />
+                <label for="capipepo">Capipepo</label>
+                <input type="radio" name="mascota" id="capipepo" />
+                <label for="ratigueya">Ratigueya</label>
+                <input type="radio" name="mascota" id="ratigueya" />
+                <label for="langosucio">Langosucio</label>
+                <input type="radio" name="mascota" id="langosucio" />
+                <label for="tucanazo">Tucanazo</label>
+                <input type="radio" name="mascota" id="tucanazo" />
+                <label for="pedos">Pedos</label>
+                <input type="radio" name="mascota" id="pedos" />
+    
+                <button id="boton-mascota">Selecionar</button>
+            </section>
+    
+            <section id="seleccionar-ataque">
+                <h2>Elige tu ataque:</h2>
+    
+                <p>Tu mascota <span id="mascota-jugador"></span> tiene <span>3</span> vidas</p>
+                <p>La mascota enemiga <span id="mascota-enemigo"></span>tiene <span>3</span> vidas</p>
+    
+                <p>
+                    <button id="boton-fuego">FUEGO 🔥</button>
+                    <button id="boton-agua">AGUA 💧</button>
+                    <button id="boton-tierra">TIERRA 🌱</button>
+                </p>
+            </section>
+    
+            <section id="mensajes">
+                <p>Tu mascota atacó con FUEGO, la mascota enemiga atacó con TIERRA - GANASTE 🎉</p>
+            </section>
+    
+            <section id="reiniciar">
+                <button id="boton-reiniciar">Reiniciar</button>
+            </section>
+            //MASCOTAS
+            Hipoperro -> Agua
+            Capipepo -> Tierra
+            Ratigueya -> Fuego
+            Langosucio -> Agua y Fuego
+            Tucanazo -> Agua y Tierra
+            Pedos -> Tierra y Fuego
+        </div>
     </body>
 </html>
-
-//MASCOTAS
-Hipoperro -> Agua
-Capipepo -> Tierra
-Ratigueya -> Fuego
-Langosucio -> Agua y Fuego
-Tucanazo -> Agua y Tierra
-Pedos -> Tierra y Fuego
