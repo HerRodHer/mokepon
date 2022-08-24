@@ -7,8 +7,24 @@ let healthEnemy = 3
 
 function startGame()
 {
-    let buttonPetPlayer = document.getElementById('boton-mascota')
+    let buttonPetPlayer = document.getElementById('button-pet-select')
     buttonPetPlayer.addEventListener('click', selectPetPlayer)
+
+    let buttonRestart = document.getElementById('button-restart')
+    buttonRestart.addEventListener('click', restartGame)
+
+    let buttonFire = document.getElementById('boton-fuego')
+    let buttonWater = document.getElementById('boton-agua')
+    let buttonEarth = document.getElementById('boton-tierra')
+    buttonFire.addEventListener('click', attackFire)
+    buttonWater.addEventListener('click', attackWater)
+    buttonEarth.addEventListener('click', attackEarth)
+
+    // BUTTONS INITIALLY DISABLED (EXCEPT FOR 'PET SELECT') 
+    buttonFire.disabled = true
+    buttonWater.disabled = true
+    buttonEarth.disabled = true
+    buttonRestart.disabled = true
 }
 function selectPetPlayer()
 {
@@ -39,21 +55,25 @@ function selectPetPlayer()
         alert("Selecciona una mascota, por favor")
         return 1;
     }
+    // BUTTON DEACTIVATION (AFTER PET SELECTION)
+    let buttonPetPlayer = document.getElementById('button-pet-select')
+    buttonPetPlayer.disabled = true
+
+    // BUTTON ACTIVATION (AFTER PET SELECTION)
+    let buttonFire = document.getElementById('boton-fuego')
+    let buttonWater = document.getElementById('boton-agua')
+    let buttonEarth = document.getElementById('boton-tierra')
+    buttonRestart = document.getElementById('button-restart')
+    buttonFire.disabled = false
+    buttonWater.disabled = false
+    buttonEarth.disabled = false
+    buttonRestart.disabled = false
 }
 function selectPetEnemy()
 {
     let randomPet = randomNum(1,6)
     let spanPetEnemy = document.getElementById('mascota-enemigo')
     spanPetEnemy.innerHTML = pets[randomPet - 1]
-
-    //now the 3 elemental attack buttons are activated
-    let buttonFire = document.getElementById('boton-fuego')
-    let buttonWater = document.getElementById('boton-agua')
-    let buttonEarth = document.getElementById('boton-tierra')
-
-    buttonFire.addEventListener('click', attackFire)
-    buttonWater.addEventListener('click', attackWater)
-    buttonEarth.addEventListener('click', attackEarth)
 }
 function attackFire()
 {
@@ -106,7 +126,7 @@ function attackEnemyRandom()
     else
     { attackEnemy = 'TIERRA'}
 }
-function printMessage()
+function printMessage()                     // PRINT MESSAGE (ROUNDS)
 {
     let sectionMessages = document.getElementById('messages')
     let parrafo = document.createElement("p")                   //paragraph creation
@@ -114,7 +134,7 @@ function printMessage()
     parrafo.innerHTML = 'Tu mascota atacó con ' + attackPlayer + ' y la mascota enemiga atacó con ' + attackEnemy + ' - ' + attackResult + '.' //paragraph content insertion
     sectionMessages.appendChild(parrafo)                        //paragraph insertion to <section id='messages'>
 }
-function victoryOrDefeat()      //check players lives for 0  
+function victoryOrDefeat()                  // CHECK PLAYERS LIVES 
 {
     if (healthPlayer == 0)
     {
@@ -125,14 +145,28 @@ function victoryOrDefeat()      //check players lives for 0
         printMessageFinal("VICTORIA!")
     }
 }
-function printMessageFinal(finalResult)
+function printMessageFinal(finalResult)     // PRINT MESSAGE (FINAL)
 {
     let sectionMessages = document.getElementById('messages')
     let parrafo = document.createElement("p")
 
     parrafo.innerHTML = finalResult
     sectionMessages.appendChild(parrafo)
+
+    // BUTTONS DISABLED AFTER GAME IS OVER
+    let buttonFire = document.getElementById('boton-fuego')
+    let buttonWater = document.getElementById('boton-agua')
+    let buttonEarth = document.getElementById('boton-tierra')
+    
+    buttonFire.disabled = true
+    buttonWater.disabled = true
+    buttonEarth.disabled = true
 }
+function restartGame()
+{
+    location.reload()
+}
+
 function randomNum(min, max)
 {
     return Math.floor(Math.random()*(max-min+1)+min)
