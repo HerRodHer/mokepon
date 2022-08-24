@@ -63,7 +63,7 @@ function selectPetPlayer()
     let buttonFire = document.getElementById('boton-fuego')
     let buttonWater = document.getElementById('boton-agua')
     let buttonEarth = document.getElementById('boton-tierra')
-    buttonRestart = document.getElementById('button-restart')
+    let buttonRestart = document.getElementById('button-restart')
     buttonFire.disabled = false
     buttonWater.disabled = false
     buttonEarth.disabled = false
