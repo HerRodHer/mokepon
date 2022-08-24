@@ -2,6 +2,8 @@ const pets = [ "Hipoperro", "Capipepo", "Ratigueya", "Langosucio", "Tucanazo", '
 let attackPlayer
 let attackEnemy
 let attackResult
+let healthPlayer = 3
+let healthEnemy = 3
 
 function startGame()
 {
@@ -75,11 +77,23 @@ function combat()
     if (attackPlayer == attackEnemy)
     {attackResult = 'EMPATE'}
     else if (attackPlayer == 'FUEGO' && attackEnemy == 'TIERRA' || attackPlayer == 'AGUA' && attackEnemy == 'FUEGO' || attackPlayer == 'TIERRA' && attackEnemy == 'AGUA')
-    {attackResult = 'GANASTE'}
+    {
+        attackResult = 'GANASTE'
+        healthEnemy--
+    }
     else
-    {attackResult = 'PERDISTE'}
+    {
+        attackResult = 'PERDISTE'
+        healthPlayer --
+    }
 
-    printMessage() 
+    let spanHealthPlayer = document.getElementById('health-player')
+    let spanHealthEnemy = document.getElementById('health-enemy')    
+    spanHealthPlayer.innerHTML = healthPlayer
+    spanHealthEnemy.innerHTML = healthEnemy
+
+    printMessage()
+    victoryOrDefeat()
 }
 function attackEnemyRandom()
 {
@@ -94,7 +108,30 @@ function attackEnemyRandom()
 }
 function printMessage()
 {
-    alert('Tu mascota atacó con ' + attackPlayer + ' y la mascota enemiga atacó con ' + attackEnemy + ' - ' + attackResult + '.')
+    let sectionMessages = document.getElementById('messages')
+    let parrafo = document.createElement("p")                   //paragraph creation
+
+    parrafo.innerHTML = 'Tu mascota atacó con ' + attackPlayer + ' y la mascota enemiga atacó con ' + attackEnemy + ' - ' + attackResult + '.' //paragraph content insertion
+    sectionMessages.appendChild(parrafo)                        //paragraph insertion to <section id='messages'>
+}
+function victoryOrDefeat()      //check players lives for 0  
+{
+    if (healthPlayer == 0)
+    {
+        printMessageFinal("DERROTA!")
+    }
+    else if (healthEnemy == 0)
+    {
+        printMessageFinal("VICTORIA!")
+    }
+}
+function printMessageFinal(finalResult)
+{
+    let sectionMessages = document.getElementById('messages')
+    let parrafo = document.createElement("p")
+
+    parrafo.innerHTML = finalResult
+    sectionMessages.appendChild(parrafo)
 }
 function randomNum(min, max)
 {
