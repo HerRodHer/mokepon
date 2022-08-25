@@ -10,21 +10,11 @@ function startGame()
     let buttonPetPlayer = document.getElementById('button-pet-select')
     buttonPetPlayer.addEventListener('click', selectPetPlayer)
 
-    let buttonRestart = document.getElementById('button-restart')
-    buttonRestart.addEventListener('click', restartGame)
-
-    let buttonFire = document.getElementById('boton-fuego')
-    let buttonWater = document.getElementById('boton-agua')
-    let buttonEarth = document.getElementById('boton-tierra')
-    buttonFire.addEventListener('click', attackFire)
-    buttonWater.addEventListener('click', attackWater)
-    buttonEarth.addEventListener('click', attackEarth)
-
-    // BUTTONS INITIALLY DISABLED (EXCEPT FOR 'PET SELECT') 
-    buttonFire.disabled = true
-    buttonWater.disabled = true
-    buttonEarth.disabled = true
-    buttonRestart.disabled = true
+    // HIDE SECTIONS: 'ATTACK SELECTION & RESTART BUTTON'
+    let sectionSelectAttack = document.getElementById('select-attack')
+    sectionSelectAttack.style.display = 'none'
+    let sectionRestart = document.getElementById('restart')
+    sectionRestart.style.display = 'none'
 }
 function selectPetPlayer()
 {
@@ -35,8 +25,8 @@ function selectPetPlayer()
     let inputTucanazo = document.getElementById('tucanazo')
     let inputPedos = document.getElementById('pedos')
 
-    let selectedPet = "Ninguna"
-    let spanPetPlayer = document.getElementById('mascota-jugador')
+    let selectedPet = "NONE"
+    let spanPetPlayer = document.getElementById('pet-player')
 
     const inputs = [ inputHipoperro, inputCapipepo, inputRatigueya, inputLangosucio, inputTucanazo, inputPedos ]
 
@@ -50,44 +40,47 @@ function selectPetPlayer()
             break
         }
     }
-    if (selectedPet == "Ninguna")
+    if (selectedPet == "NONE")
     {
-        alert("Selecciona una mascota, por favor")
+        alert("⚠⚠ PLEASE SELECT A PET ⚠⚠")
         return 1;
     }
-    // BUTTON DEACTIVATION (AFTER PET SELECTION)
-    let buttonPetPlayer = document.getElementById('button-pet-select')
-    buttonPetPlayer.disabled = true
 
-    // BUTTON ACTIVATION (AFTER PET SELECTION)
-    let buttonFire = document.getElementById('boton-fuego')
-    let buttonWater = document.getElementById('boton-agua')
-    let buttonEarth = document.getElementById('boton-tierra')
-    let buttonRestart = document.getElementById('button-restart')
-    buttonFire.disabled = false
-    buttonWater.disabled = false
-    buttonEarth.disabled = false
-    buttonRestart.disabled = false
+    // HIDE SECTION: 'PET SELECTION'
+    let sectionSelectPet = document.getElementById('select-pet')
+    sectionSelectPet.style.display = 'none'
+
+    // SHOW SECTION: 'ATTACK'
+    let sectionSelectAttack = document.getElementById('select-attack')
+    sectionSelectAttack.style.display = 'block'
+
+    // ATTACK BUTTONS ACTIVATION (AFTER PET SELECTION)
+    let buttonFire = document.getElementById('button-fire')
+    let buttonWater = document.getElementById('button-water')
+    let buttonEarth = document.getElementById('button-earth')
+    buttonFire.addEventListener('click', attackFire)
+    buttonWater.addEventListener('click', attackWater)
+    buttonEarth.addEventListener('click', attackEarth)
 }
-function selectPetEnemy()
+function selectPetEnemy()                   // AUTO SELECT A RANDOM ENEMY PET + SHOW IT IN HTML
 {
     let randomPet = randomNum(1,6)
-    let spanPetEnemy = document.getElementById('mascota-enemigo')
+    let spanPetEnemy = document.getElementById('pet-enemy')
     spanPetEnemy.innerHTML = pets[randomPet - 1]
 }
 function attackFire()
 {
-    attackPlayer = 'FUEGO'
+    attackPlayer = 'FIRE'
     combat()
 }
 function attackWater()
 {
-    attackPlayer = 'AGUA'
+    attackPlayer = 'WATER'
     combat()
 }
 function attackEarth()
 {
-    attackPlayer = 'TIERRA'    
+    attackPlayer = 'EARTH'    
     combat()       
 }
 function combat()
@@ -95,18 +88,19 @@ function combat()
     attackEnemyRandom()
 
     if (attackPlayer == attackEnemy)
-    {attackResult = 'EMPATE'}
-    else if (attackPlayer == 'FUEGO' && attackEnemy == 'TIERRA' || attackPlayer == 'AGUA' && attackEnemy == 'FUEGO' || attackPlayer == 'TIERRA' && attackEnemy == 'AGUA')
+    {attackResult = 'DRAW'}
+    else if (attackPlayer == 'FIRE' && attackEnemy == 'EARTH' || attackPlayer == 'WATER' && attackEnemy == 'FIRE' || attackPlayer == 'EARTH' && attackEnemy == 'WATER')
     {
-        attackResult = 'GANASTE'
+        attackResult = 'YOU WIN !!!'
         healthEnemy--
     }
     else
     {
-        attackResult = 'PERDISTE'
+        attackResult = 'YOU LOSE !!!'
         healthPlayer --
     }
 
+    // SHOW & UPDATE THE LIVES COUNTER
     let spanHealthPlayer = document.getElementById('health-player')
     let spanHealthEnemy = document.getElementById('health-enemy')    
     spanHealthPlayer.innerHTML = healthPlayer
@@ -120,56 +114,60 @@ function attackEnemyRandom()
     let attackRandom = randomNum(1,3)
 
     if (attackRandom == 1)
-    { attackEnemy = 'FUEGO'}
+    { attackEnemy = 'FIRE'}
     else if (attackRandom == 2)
-    { attackEnemy = 'AGUA'}
+    { attackEnemy = 'WATER'}
     else
-    { attackEnemy = 'TIERRA'}
+    { attackEnemy = 'EARTH'}
 }
 function printMessage()                     // PRINT MESSAGE (ROUNDS)
 {
     let sectionMessages = document.getElementById('messages')
-    let parrafo = document.createElement("p")                   //paragraph creation
-
-    parrafo.innerHTML = 'Tu mascota atacó con ' + attackPlayer + ' y la mascota enemiga atacó con ' + attackEnemy + ' - ' + attackResult + '.' //paragraph content insertion
-    sectionMessages.appendChild(parrafo)                        //paragraph insertion to <section id='messages'>
+    let paragraph = document.createElement("p")                   //paragraph creation
+    paragraph.innerHTML = 'Your pet attacked with ' + attackPlayer + ' and your enemy\'s pet attacked with ' + attackEnemy + ' - ' + attackResult + '.' //paragraph content insertion
+    sectionMessages.appendChild(paragraph)                        //paragraph insertion to <section id='messages'>
 }
 function victoryOrDefeat()                  // CHECK PLAYERS LIVES 
 {
     if (healthPlayer == 0)
     {
-        printMessageFinal("DERROTA!")
+        printMessageFinal("🎃 DEFEAT! 🎃")
     }
     else if (healthEnemy == 0)
     {
-        printMessageFinal("VICTORIA!")
+        printMessageFinal("✨ VICTORY! ✨")
     }
 }
 function printMessageFinal(finalResult)     // PRINT MESSAGE (FINAL)
 {
+    // <P> CREATION INSIDE MESSAGE SECTION WITH TEXT FROM 'victoryOrDefeat()' FUNCTION
     let sectionMessages = document.getElementById('messages')
-    let parrafo = document.createElement("p")
-
-    parrafo.innerHTML = finalResult
-    sectionMessages.appendChild(parrafo)
+    let paragraph = document.createElement("p")
+    paragraph.innerHTML = finalResult
+    sectionMessages.appendChild(paragraph)
 
     // BUTTONS DISABLED AFTER GAME IS OVER
-    let buttonFire = document.getElementById('boton-fuego')
-    let buttonWater = document.getElementById('boton-agua')
-    let buttonEarth = document.getElementById('boton-tierra')
-    
+    let buttonFire = document.getElementById('button-fire')
+    let buttonWater = document.getElementById('button-water')
+    let buttonEarth = document.getElementById('button-earth')  
     buttonFire.disabled = true
     buttonWater.disabled = true
     buttonEarth.disabled = true
+
+    // SHOW RESTART SECTION & ACTIVATE BUTTON
+    let sectionRestart = document.getElementById('restart')
+    sectionRestart.style.display = 'block'
+    let buttonRestart = document.getElementById('button-restart')
+    buttonRestart.addEventListener('click', restartGame)
 }
 function restartGame()
 {
     location.reload()
 }
-
 function randomNum(min, max)
 {
     return Math.floor(Math.random()*(max-min+1)+min)
 }
 
+// CALLS 'startGame()' FUNCTION (AFTER ALL HTML IS LOADED)
 window.addEventListener('load', startGame)
