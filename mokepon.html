@@ -1,63 +1,72 @@
-<!DOCTYPE html5>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
-        <title>🌱💧🔥 ¡ MOKEPON ! 🔥💧🌱</title>
+        <title>🌱💧🔥 ¡ AXIEMON ! 🔥💧🌱</title>
         <link rel="stylesheet" href="./css/styles.css">
         <script src="./js/codigo.js"></script>
     </head>
     <body>
-        <h1>🌱💧🔥 ¡ MOKEPON ! 🔥💧🌱</h1>
+        <section id="select-pet">
+            <h1 class="title">🌱💧🔥 ¡ AXIEMON ! 🔥💧🌱</h1>
 
-        <div id="div1">
-            <section id="select-pet">
-                <h2>SELECT YOUR MOKEPON:</h2>
-    
-                <label for="hipoperro">Hipoperro</label>
-                <input type="radio" name="pet" id="hipoperro" />
-                <label for="capipepo">/ Capipepo</label>
-                <input type="radio" name="pet" id="capipepo" />
-                <label for="ratigueya">/ Ratigueya</label>
-                <input type="radio" name="pet" id="ratigueya" />
-                <label for="langosucio">/ Langosucio</label>
-                <input type="radio" name="pet" id="langosucio" />
-                <label for="tucanazo">/ Tucanazo</label>
-                <input type="radio" name="pet" id="tucanazo" />
-                <label for="pedos">/ Pedos</label>
-                <input type="radio" name="pet" id="pedos" />
-    
-                <button id="button-pet-select">SELECT</button>
-            </section>
-    
-            <section id="select-attack">
-                <h2>SELECT YOUR ATTACK:</h2>
-    
-                <p>Your MOKEPON <i><span id="pet-player"></span></i> has <span id="health-player">3</span> health points</p>
-                <p>Your enemy's MOKEPON <i><span id="pet-enemy"></span></i> has <span id="health-enemy">3</span> health points</p>
-    
-                <p>
-                    <button id="button-fire">FIRE 🔥</button>
-                    <button id="button-water">WATER 💧</button>
-                    <button id="button-earth">EARTH 🌱</button>
-                </p>
-            </section>
-    
-            <section id="messages">                
-            </section>
-    
-            <section id="restart">
-                <button id="button-restart">RESTART</button>
-            </section>
-        </div>
+            <h2 class="subtitle">SELECT YOUR AXIEMON:</h2>
+
+            <div class="cards">
+                <label class="pet-card" for="hipoperro">
+                    <p>HIPOCHAD</p>
+                    <img src="./assets/axie-full-transparent (7).png" alt="HIPODOGE">
+                </label>
+                <input type="radio" name="pet" id="hipoperro"/>
+
+                <label class="pet-card" for="capipepo">
+                    <p>KAPIKAT</p>
+                    <img src="./assets/axie-full-transparent.png" alt="KAPIKAT">
+                </label>
+                <input type="radio" name="pet" id="capipepo"/>
+
+                <label class="pet-card" for="ratigueya">
+                    <p>HORNYBUG</p>
+                    <img src="./assets/axie-full-transparent (3).png" alt="PLANTYRAT">
+                </label>
+                <input type="radio" name="pet" id="ratigueya"/>
+            </div>
+
+            <button id="button-pet-select">SELECT</button>
+        </section>
+
+        <section id="select-attack">
+            <h1 class="title">🌱💧🔥 ¡ MOKEPON ! 🔥💧🌱</h1>
+
+            <h2 class="subtitle">SELECT YOUR ATTACK:</h2>
+
+            <div class="cards">
+                <button id="button-fire" class="buttons-attack">🔥 FIRE 🔥</button>
+                <button id="button-water" class="buttons-attack">💧 WATER 💧</button>
+                <button id="button-earth" class="buttons-attack">🌱 EARTH 🌱</button>
+            </div>
+
+            <div id="messages" class="cards">   
+                <p id="combat-result">Good Luck!</p>    
+
+                <section id="restart">
+                    <button id="button-restart">RESTART</button>
+                </section>         
+            </div>
+
+            <div class="attack-cards">
+                <div>
+                    <p id="health-player">3 💖</p>
+                    <p id="pet-player" class="players"></p>
+                    <p id="player-attack"></p>
+                </div>
+                <div>
+                    <p id="health-enemy">3 💖</p>
+                    <p id="pet-enemy" class="players"></p>
+                    <p id="enemy-attack"></p>
+                </div>
+            </div>
+            
+        </section>
     </body>
 </html>
-
-<!-- 
-MASCOTAS
-Hipoperro -> Agua
-Capipepo -> Tierra
-Ratigueya -> Fuego
-Langosucio -> Agua y Fuego
-Tucanazo -> Agua y Tierra
-Pedos -> Tierra y Fuego
- -->

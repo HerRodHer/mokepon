@@ -1,4 +1,4 @@
-const pets = [ "Hipoperro", "Capipepo", "Ratigueya", "Langosucio", "Tucanazo", 'Pedos' ]
+const pets = [ "Hipoperro", "Capipepo", "Ratigueya" ]
 let attackPlayer
 let attackEnemy
 let attackResult
@@ -21,14 +21,11 @@ function selectPetPlayer()
     let inputHipoperro = document.getElementById('hipoperro')
     let inputCapipepo = document.getElementById('capipepo')
     let inputRatigueya = document.getElementById('ratigueya')
-    let inputLangosucio = document.getElementById('langosucio')
-    let inputTucanazo = document.getElementById('tucanazo')
-    let inputPedos = document.getElementById('pedos')
 
     let selectedPet = "NONE"
     let spanPetPlayer = document.getElementById('pet-player')
 
-    const inputs = [ inputHipoperro, inputCapipepo, inputRatigueya, inputLangosucio, inputTucanazo, inputPedos ]
+    const inputs = [ inputHipoperro, inputCapipepo, inputRatigueya ]
 
     for (i = 0; i < pets.length; i++)
     {
@@ -52,7 +49,7 @@ function selectPetPlayer()
 
     // SHOW SECTION: 'ATTACK'
     let sectionSelectAttack = document.getElementById('select-attack')
-    sectionSelectAttack.style.display = 'block'
+    sectionSelectAttack.style.display = 'flex'
 
     // ATTACK BUTTONS ACTIVATION (AFTER PET SELECTION)
     let buttonFire = document.getElementById('button-fire')
@@ -64,7 +61,7 @@ function selectPetPlayer()
 }
 function selectPetEnemy()                   // AUTO SELECT A RANDOM ENEMY PET + SHOW IT IN HTML
 {
-    let randomPet = randomNum(1,6)
+    let randomPet = randomNum(1, 3)
     let spanPetEnemy = document.getElementById('pet-enemy')
     spanPetEnemy.innerHTML = pets[randomPet - 1]
 }
@@ -103,10 +100,10 @@ function combat()
     // SHOW & UPDATE THE LIVES COUNTER
     let spanHealthPlayer = document.getElementById('health-player')
     let spanHealthEnemy = document.getElementById('health-enemy')    
-    spanHealthPlayer.innerHTML = healthPlayer
-    spanHealthEnemy.innerHTML = healthEnemy
+    spanHealthPlayer.innerHTML = healthPlayer + "💖"
+    spanHealthEnemy.innerHTML = healthEnemy + "💖"
 
-    printMessage()
+    printMessage(attackResult)
     victoryOrDefeat()
 }
 function attackEnemyRandom()
@@ -120,12 +117,21 @@ function attackEnemyRandom()
     else
     { attackEnemy = 'EARTH'}
 }
-function printMessage()                     // PRINT MESSAGE (ROUNDS)
+function printMessage(combatResult)                     // PRINT MESSAGE (ROUNDS)
 {
-    let sectionMessages = document.getElementById('messages')
-    let paragraph = document.createElement("p")                   //paragraph creation
-    paragraph.innerHTML = 'Your pet attacked with ' + attackPlayer + ' and your enemy\'s pet attacked with ' + attackEnemy + ' - ' + attackResult + '.' //paragraph content insertion
-    sectionMessages.appendChild(paragraph)                        //paragraph insertion to <section id='messages'>
+    let combatNotification = document.getElementById('combat-result')
+    let playerAttacks = document.getElementById('player-attack')
+    let enemyAttacks = document.getElementById('enemy-attack')
+
+    let newPlayerAttack = document.createElement("p")
+    let newEnemyAttack = document.createElement("p")
+
+    combatNotification.innerHTML = combatResult
+    newPlayerAttack.innerHTML = attackPlayer
+    newEnemyAttack.innerHTML = attackEnemy
+
+    playerAttacks.appendChild(newPlayerAttack)
+    enemyAttacks.appendChild(newEnemyAttack)
 }
 function victoryOrDefeat()                  // CHECK PLAYERS LIVES 
 {
@@ -141,10 +147,8 @@ function victoryOrDefeat()                  // CHECK PLAYERS LIVES
 function printMessageFinal(finalResult)     // PRINT MESSAGE (FINAL)
 {
     // <P> CREATION INSIDE MESSAGE SECTION WITH TEXT FROM 'victoryOrDefeat()' FUNCTION
-    let sectionMessages = document.getElementById('messages')
-    let paragraph = document.createElement("p")
-    paragraph.innerHTML = finalResult
-    sectionMessages.appendChild(paragraph)
+    let combatNotification = document.getElementById('combat-result')
+    combatNotification.innerHTML = finalResult
 
     // BUTTONS DISABLED AFTER GAME IS OVER
     let buttonFire = document.getElementById('button-fire')

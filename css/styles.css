@@ -1,37 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 body
 {
     background-image: linear-gradient(115deg, rgb(255, 127, 80, 0.7), rgba(136, 136, 206, 0.7)), url(https://i0.wp.com/www.unitedgamers.gg/wp-content/uploads/2022/04/Origin-Impressions.jpg?w=1920&ssl=1);
     background-color: rgb(255, 127, 80, 0.7);
-    background-size: cover;
-    margin: 0;
-    width: 100%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 2rem;
-    color: f3f3f3;
-    font-weight: bolder;
+    background-size: cover; 
+    font-family: 'Silkscreen', cursive;
 }
 
-h1 
+#select-pet
 {
-    text-align: center;
-    margin: 1em auto;
-    font-style:oblique;
-}
-h2
-{
-    color: rgb(44, 80, 169);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#div1 
+.title
 {
+    color: #FEECE9;
+    font-size: 120px;
+    text-shadow: 5px 4px 1px #000000;
+}
+
+.subtitle
+{
+    color: #FEECE9;
+    font-size: 60px;
+    text-shadow: 4px 3px 1px #000000;
+}
+
+.cards
+{
+    display: flex;
+    gap: 30px;
+    background-color: #2F3A8F;
+    margin: 15px 0 0 0;
+    padding: 20px;
+    border: 5px solid #2F3A8F;
+    border-radius: 10px;
+    box-shadow: 1px 1px 12px 5px #FE7E6D; 
+}
+
+.pet-card
+{
+    width: 219px;
+    height: 279px;
+    background: #FE7E6D;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #2F3A8F;
+    border: 5px solid #2F3A8F;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #feece9;
+    cursor: pointer;
+    box-shadow: 1px 1px 12px 5px #ccd1e4;                        /* CHANGES THE POINTER TO A HAND WHEN HOVERING */
+}
+
+.pet-card img
+{
+    width: 286px;
+}
+
+#button-pet-select
+{
+    width: 200px;
+    height: 56px;
+    background: #2F3A8F;
+    padding: 0px;
+    box-sizing: border-box;
+    margin: 40px 0 0 0;
+    border: 3px solid #FE7E6D;
+    border-radius: 10px;
+    font-family: 'Silkscreen', cursive;
+    font-size: 30px;
+    color: #FEECE9;
+    font-weight: bold;
     text-align: center;
-    max-width: 950px;
-    min-width: 350px;
-    margin: 30 auto;
-    background-color: rgb(255, 127, 80, 0.95);
-    padding: 20px 20px;
-    font-size: 1.25rem;
-    border-radius: 90px;
-    border-color: rgb(44, 80, 169);
-    border-style: dashed;
+    text-shadow: 1px 1px 1px #000000;
+    box-shadow: 1px 1px 20px 5px #FE7E6D; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+input
+{
+    display: none;
+}
+
+#select-attack
+{
+    flex-direction: column;
+    align-items: center;
+}
+
+.buttons-attack
+{
+    width: 173px;
+    height: 54px;
+    background-color: #FE7E6D;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: #2F3A8F;
+    border: 4px solid #2F3A8F;
+    font-family: 'Silkscreen', cursive;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #FEECE9;
+    cursor: pointer;
+    box-shadow: 1px 1px 12px 2px #FE7E6D; 
+}
+
+#messages
+{
+    width: 480px;
+    background-color: #FE7E6D;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    border: 4px solid #2F3A8F;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #FEECE9;
+}
+
+#button-restart
+{
+    background-color: #FEECE9;
+    border: 4px solid #2F3A8F;
+    color: #2F3A8F;
+    font-family: 'Silkscreen', cursive;
+    border-radius: 20px;
+    width: 173px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #FEECE9;
+}
+
+.attack-cards
+{
+    display: grid;
+    grid-template-columns: [column01] 200px [column02] 200px;
+    gap: 40px;
+    padding: 16px;
+    border: 4px solid #2F3A8F;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #FE7E6D;
+}
+
+.attack-cards div
+{
+    background-color:#2F3A8F;
+    border: 4px solid #2F3A8F;
+    border-radius: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 1px 1px 4px #FEECE9;
+    box-shadow: 1px 1px 12px 2px #FE7E6D; 
+}
+
+.players
+{
+    color: #FEECE9;
+    text-shadow: 1px 1px 4px #000000;
 }
