@@ -1,31 +1,77 @@
-const pets = [ "Hipoperro", "Capipepo", "Ratigueya" ]
+
+// FUNCTIONS: startGame() - selectPetPlayer() - printMessageFinal(finalResult) 
+const buttonPetPlayer = document.getElementById('button-pet-select')
+const sectionSelectAttack = document.getElementById('select-attack')
+const sectionRestart = document.getElementById('restart')
+
+// FUNCTIONS: selectPetPlayer()
+const pets = [ "Hipochad", "Kapikat", "Hornybug" ]
+const sectionSelectPet = document.getElementById('select-pet')
+const inputHipochad = document.getElementById('hipochad')
+const inputKapikat = document.getElementById('kapikat')
+const inputHornybug = document.getElementById('hornybug')
+const spanPetPlayer = document.getElementById('pet-player')
+
+// FUNCTIONS: selectPetEnemy() 
+const spanPetEnemy = document.getElementById('pet-enemy')
+
+// FUNCTIONS: combat()
+const spanHealthPlayer = document.getElementById('health-player')
+const spanHealthEnemy = document.getElementById('health-enemy') 
 let attackPlayer
 let attackEnemy
 let attackResult
 let healthPlayer = 3
 let healthEnemy = 3
 
-function startGame()
+// FUNCTIONS: printMessage(combatResult)  
+const playerAttacks = document.getElementById('player-attack')
+const enemyAttacks = document.getElementById('enemy-attack')
+
+// FUNCTIONS: selectPetPlayer() - printMessageFinal(finalResult) 
+const buttonFire = document.getElementById('button-fire')
+const buttonWater = document.getElementById('button-water')
+const buttonEarth = document.getElementById('button-earth') 
+
+// FUNCTIONS: printMessage(combatResult) - printMessageFinal(finalResult) 
+const combatNotification = document.getElementById('combat-result')
+const buttonRestart = document.getElementById('button-restart')
+
+let axiemons = []
+
+// CLASS DEFINITION
+class Axiemon 
 {
-    let buttonPetPlayer = document.getElementById('button-pet-select')
+    constructor(name, picture, health)
+    {
+        this.name = name
+        this.picture = picture
+        this.health = health
+    }
+}
+// CLASS OBJECTS DEFINITION
+let hipochad = new Axiemon('Hipochad', './assets/axie-full-transparent (7).png', 5)
+let kapikat = new Axiemon('Kapikat', './assets/axie-full-transparent.png', 5)
+let hornybug = new Axiemon('Hornybug', './assets/axie-full-transparent (3).png', 5)
+
+// CLASS OBJECTS PUSHED(LOADED) INTO THE ARRAY 'axiemons'
+axiemons.push(hipochad, kapikat, hornybug)
+
+console.log(axiemons)
+
+function startGame()
+{   
+    // FUNCTION TO SELECT PET ASIGNED TO THE PLAYER BUTTON   
     buttonPetPlayer.addEventListener('click', selectPetPlayer)
 
-    // HIDE SECTIONS: 'ATTACK SELECTION & RESTART BUTTON'
-    let sectionSelectAttack = document.getElementById('select-attack')
-    sectionSelectAttack.style.display = 'none'
-    let sectionRestart = document.getElementById('restart')
+    // HIDE SECTIONS: 'ATTACK SELECTION & RESTART BUTTON'    
+    sectionSelectAttack.style.display = 'none'    
     sectionRestart.style.display = 'none'
 }
 function selectPetPlayer()
 {
-    let inputHipoperro = document.getElementById('hipoperro')
-    let inputCapipepo = document.getElementById('capipepo')
-    let inputRatigueya = document.getElementById('ratigueya')
-
     let selectedPet = "NONE"
-    let spanPetPlayer = document.getElementById('pet-player')
-
-    const inputs = [ inputHipoperro, inputCapipepo, inputRatigueya ]
+    const inputs = [ inputHipochad, inputKapikat, inputHornybug ]
 
     for (i = 0; i < pets.length; i++)
     {
@@ -42,19 +88,10 @@ function selectPetPlayer()
         alert("⚠⚠ PLEASE SELECT A PET ⚠⚠")
         return 1;
     }
+    sectionSelectPet.style.display = 'none'                 // HIDE SECTION: 'PET SELECTION'        
+    sectionSelectAttack.style.display = 'flex'              // SHOW SECTION: 'ATTACK'
 
-    // HIDE SECTION: 'PET SELECTION'
-    let sectionSelectPet = document.getElementById('select-pet')
-    sectionSelectPet.style.display = 'none'
-
-    // SHOW SECTION: 'ATTACK'
-    let sectionSelectAttack = document.getElementById('select-attack')
-    sectionSelectAttack.style.display = 'flex'
-
-    // ATTACK BUTTONS ACTIVATION (AFTER PET SELECTION)
-    let buttonFire = document.getElementById('button-fire')
-    let buttonWater = document.getElementById('button-water')
-    let buttonEarth = document.getElementById('button-earth')
+    // ATTACK BUTTONS ACTIVATION (AFTER PET SELECTION)    
     buttonFire.addEventListener('click', attackFire)
     buttonWater.addEventListener('click', attackWater)
     buttonEarth.addEventListener('click', attackEarth)
@@ -62,7 +99,6 @@ function selectPetPlayer()
 function selectPetEnemy()                   // AUTO SELECT A RANDOM ENEMY PET + SHOW IT IN HTML
 {
     let randomPet = randomNum(1, 3)
-    let spanPetEnemy = document.getElementById('pet-enemy')
     spanPetEnemy.innerHTML = pets[randomPet - 1]
 }
 function attackFire()
@@ -96,13 +132,9 @@ function combat()
         attackResult = 'YOU LOSE !!!'
         healthPlayer --
     }
-
-    // SHOW & UPDATE THE LIVES COUNTER
-    let spanHealthPlayer = document.getElementById('health-player')
-    let spanHealthEnemy = document.getElementById('health-enemy')    
+    // SHOW & UPDATE THE LIVES COUNTER   
     spanHealthPlayer.innerHTML = healthPlayer + "💖"
     spanHealthEnemy.innerHTML = healthEnemy + "💖"
-
     printMessage(attackResult)
     victoryOrDefeat()
 }
@@ -119,21 +151,17 @@ function attackEnemyRandom()
 }
 function printMessage(combatResult)                     // PRINT MESSAGE (ROUNDS)
 {
-    let combatNotification = document.getElementById('combat-result')
-    let playerAttacks = document.getElementById('player-attack')
-    let enemyAttacks = document.getElementById('enemy-attack')
+    let newPlayerAttack = document.createElement("p")   // CREATES A <p> ELEMENT FOR PLAYER ATTACKS 
+    let newEnemyAttack = document.createElement("p")    // CREATES A <p> ELEMENT FOR ENEMY'S ATTACKS
 
-    let newPlayerAttack = document.createElement("p")
-    let newEnemyAttack = document.createElement("p")
-
-    combatNotification.innerHTML = combatResult
-    newPlayerAttack.innerHTML = attackPlayer
-    newEnemyAttack.innerHTML = attackEnemy
+    combatNotification.innerHTML = combatResult         // CREATES THE TEXT INSIDE THE ALREADY CREATED <P> IN THE HTML         
+    newPlayerAttack.innerHTML = attackPlayer            // CREATES THE TEXT IN THE <p> ELEMENT FOR PLAYER ATTACKS 
+    newEnemyAttack.innerHTML = attackEnemy              // CREATES THE TEXT IN THE <p> ELEMENT FOR ENEMY'S ATTACKS
 
     playerAttacks.appendChild(newPlayerAttack)
     enemyAttacks.appendChild(newEnemyAttack)
 }
-function victoryOrDefeat()                  // CHECK PLAYERS LIVES 
+function victoryOrDefeat()                          // CHECK PLAYERS LIVES 
 {
     if (healthPlayer == 0)
     {
@@ -146,22 +174,16 @@ function victoryOrDefeat()                  // CHECK PLAYERS LIVES
 }
 function printMessageFinal(finalResult)     // PRINT MESSAGE (FINAL)
 {
-    // <P> CREATION INSIDE MESSAGE SECTION WITH TEXT FROM 'victoryOrDefeat()' FUNCTION
-    let combatNotification = document.getElementById('combat-result')
+    // <P> CREATION INSIDE MESSAGE SECTION WITH TEXT FROM 'victoryOrDefeat()' FUNCTION    
     combatNotification.innerHTML = finalResult
 
     // BUTTONS DISABLED AFTER GAME IS OVER
-    let buttonFire = document.getElementById('button-fire')
-    let buttonWater = document.getElementById('button-water')
-    let buttonEarth = document.getElementById('button-earth')  
     buttonFire.disabled = true
     buttonWater.disabled = true
     buttonEarth.disabled = true
 
     // SHOW RESTART SECTION & ACTIVATE BUTTON
-    let sectionRestart = document.getElementById('restart')
     sectionRestart.style.display = 'block'
-    let buttonRestart = document.getElementById('button-restart')
     buttonRestart.addEventListener('click', restartGame)
 }
 function restartGame()
