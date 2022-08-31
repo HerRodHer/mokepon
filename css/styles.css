@@ -20,27 +20,28 @@ body
 .title
 {
     color: #FEECE9;
-    font-size: 120px;
+    font-size: clamp( 1.40em, 80vw, 4vw);
     text-shadow: 5px 4px 1px #000000;
 }
 
 .subtitle
 {
     color: #FEECE9;
-    font-size: 60px;
+    font-size: clamp( 1.55rem, 40vw, 3vw);
     text-shadow: 4px 3px 1px #000000;
 }
 
-.cards
+.cards, .cards-attack
 {
     display: flex;
     gap: 30px;
     background-color: #2F3A8F;
-    margin: 15px 0 0 0;
+    margin: 15px;
     padding: 20px;
     border: 5px solid #2F3A8F;
     border-radius: 10px;
-    box-shadow: 1px 1px 12px 5px #FE7E6D; 
+    box-shadow: 1px 1px 12px 5px #FE7E6D;
+    align-items: center; 
 }
 
 .pet-card
@@ -94,6 +95,28 @@ body
 input
 {
     display: none;
+}
+
+input:checked + label
+{
+    background-color: aqua;
+}
+
+input:hover + label
+{
+    background-color: #ccd1e4;
+}
+
+.buttons-attack:hover
+{
+    background-color: aqua;
+}
+
+#button-pet-select:hover
+{
+    background-color:#FE7E6D;
+    border: 3px solid #2F3A8F;
+    color: #2F3A8F;
 }
 
 #select-attack
@@ -155,14 +178,16 @@ input
 .attack-cards
 {
     display: grid;
-    grid-template-columns: [column01] 200px [column02] 200px;
-    gap: 40px;
+    grid-template-columns: [column01] 150px [column02] 150px;
+    gap: 20px;
     padding: 16px;
     border: 4px solid #2F3A8F;
     border-radius: 20px;
     text-align: center;
     margin-top: 20px;
     background-color: #FE7E6D;
+    justify-content: space-evenly;
+    justify-items: center;
 }
 
 .attack-cards div
@@ -170,14 +195,33 @@ input
     background-color:#2F3A8F;
     border: 4px solid #2F3A8F;
     border-radius: 20px;
+    padding: 10px;
+    margin: 5px;
     font-size: 20px;
     font-weight: bold;
     text-shadow: 1px 1px 4px #FEECE9;
     box-shadow: 1px 1px 12px 2px #FE7E6D; 
+    flex-direction: row;
 }
 
 .players
 {
     color: #FEECE9;
-    text-shadow: 1px 1px 4px #000000;
+    text-shadow: 1px 1px 4px #000000; 
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 800px)
+{
+    .cards, .cards-attack, .attack-cards 
+    {
+        flex-direction: column;
+        min-width: 330px;
+        max-width: 335px;
+        box-sizing: border-box;        
+    }
+    .buttons-attack
+    {
+        min-width: 310px;
+    }
 }
