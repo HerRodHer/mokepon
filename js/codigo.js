@@ -3,6 +3,9 @@
 const buttonPetPlayer = document.getElementById('button-pet-select')
 const sectionSelectAttack = document.getElementById('select-attack')
 const sectionRestart = document.getElementById('restart')
+const cardsContainer = document.getElementById('cardsContainer')
+let axiemonOptions
+
 
 // FUNCTIONS: selectPetPlayer()
 const pets = [ "Hipochad", "Kapikat", "Hornybug" ]
@@ -47,17 +50,41 @@ class Axiemon
         this.name = name
         this.picture = picture
         this.health = health
+        this.attacks = []               // LITERAL OBJECT (NOT DECLARED ABOVE AT FUNCTION LVL)
     }
 }
 // CLASS OBJECTS DEFINITION
-let hipochad = new Axiemon('Hipochad', './assets/axie-full-transparent (7).png', 5)
-let kapikat = new Axiemon('Kapikat', './assets/axie-full-transparent.png', 5)
-let hornybug = new Axiemon('Hornybug', './assets/axie-full-transparent (3).png', 5)
+let hipochad = new Axiemon('hipochad', './assets/axie-full-transparent (7).png', 5)
+let kapikat = new Axiemon('kapikat', './assets/axie-full-transparent.png', 5)
+let hornybug = new Axiemon('hornybug', './assets/axie-full-transparent (3).png', 5)
 
+// LITERAL OBJECTS PUSHED(LOADED) INTO THE ARRAY 'attacks'
+hipochad.attacks.push (
+    { name: '💧', id: 'button-water' },
+    { name: '💧', id: 'button-water' },
+    { name: '💧', id: 'button-water' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🌱', id: 'button-earth' },
+)
+
+kapikat.attacks.push (
+    { name: '🌱', id: 'button-earth' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '💧', id: 'button-water' },
+    { name: '🔥', id: 'button-fire' },
+)
+
+hornybug.attacks.push (
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '💧', id: 'button-water' },
+    { name: '🌱', id: 'button-earth' },
+)
 // CLASS OBJECTS PUSHED(LOADED) INTO THE ARRAY 'axiemons'
-axiemons.push(hipochad, kapikat, hornybug)
+axiemons.push (hipochad, kapikat, hornybug)
 
-console.log(axiemons)
 
 function startGame()
 {   
@@ -67,6 +94,20 @@ function startGame()
     // HIDE SECTIONS: 'ATTACK SELECTION & RESTART BUTTON'    
     sectionSelectAttack.style.display = 'none'    
     sectionRestart.style.display = 'none'
+
+    axiemons.forEach ((axiemon) => 
+    {
+        axiemonOptions = 
+        `
+            <input type="radio" name="pet" id="${axiemon.name}"/>              
+            <label class="pet-card" for="${axiemon.name}">
+                <p>"${axiemon.name}"</p>
+                <img src="${axiemon.picture}" alt="${axiemon.name}">
+            </label>
+        `
+        cardsContainer.innerHTML += axiemonOptions
+    })
+
 }
 function selectPetPlayer()
 {
