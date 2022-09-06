@@ -187,7 +187,7 @@ input:hover + label
     margin-top: 20px;
     background-color: #FE7E6D;
     justify-content: space-evenly;
-    justify-items: center;
+    justify-items: stretch;
 }
 
 .attack-cards div

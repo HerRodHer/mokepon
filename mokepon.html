@@ -2,32 +2,25 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
-        <meta name="viewport"content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>🌱💧🔥 ¡ AXIEMON ! 🔥💧🌱</title>
         <link rel="stylesheet" href="./css/styles.css">
     </head>
     <body>
         <section id="select-pet">
             <h1 class="title">🌱💧🔥 ¡ AXIEMON ! 🔥💧🌱</h1>
-
             <h2 class="subtitle">SELECT YOUR AXIEMON:</h2>
 
-            <div id="cardsContainer" class="cards">
-            </div>
+            <div id="cardsContainer" class="cards"></div>
 
             <button id="button-pet-select">SELECT</button>
         </section>
 
         <section id="select-attack">
             <h1 class="title">🌱💧🔥 ¡ AXIEMON ! 🔥💧🌱</h1>
-
             <h2 class="subtitle">SELECT YOUR ATTACK:</h2>
 
-            <div class="cards-attack">
-                <button id="button-fire" class="buttons-attack">🔥 FIRE 🔥</button>
-                <button id="button-water" class="buttons-attack">💧 WATER 💧</button>
-                <button id="button-earth" class="buttons-attack">🌱 EARTH 🌱</button>
-            </div>
+            <div id="attacks-Container" class="cards-attack"></div>
 
             <div id="messages" class="cards">   
                 <p id="combat-result">Good Luck!</p>    
@@ -39,17 +32,16 @@
 
             <div class="attack-cards">
                 <div>
-                    <p id="health-player">3 💖</p>
+                    <p id="health-player">0 🏆</p>
                     <p id="pet-player" class="players"></p>
                     <p id="player-attack"></p>
                 </div>
                 <div>
-                    <p id="health-enemy">3 💖</p>
+                    <p id="health-enemy">0 🏆</p>
                     <p id="pet-enemy" class="players"></p>
                     <p id="enemy-attack"></p>
                 </div>
-            </div>
-            
+            </div>            
         </section>
         <script src="./js/codigo.js"></script>
     </body>
