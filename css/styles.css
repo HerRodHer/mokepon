@@ -29,6 +29,13 @@ body
     color: #FEECE9;
     font-size: clamp( 1.55rem, 40vw, 3vw);
     text-shadow: 4px 3px 1px #000000;
+    margin-top: 0px;
+}
+
+#cardsContainer
+{
+    max-width: 815px;
+    box-sizing: border-box;
 }
 
 .cards, .cards-attack
@@ -42,6 +49,15 @@ body
     border-radius: 10px;
     box-shadow: 1px 1px 12px 5px #FE7E6D;
     align-items: center; 
+}
+
+.cards 
+{
+    display: flex;
+    margin: 0 15px 15px 15px;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .pet-card
@@ -213,15 +229,20 @@ input:hover + label
 /* RESPONSIVE DESIGN */
 @media (max-width: 800px)
 {
-    .cards, .cards-attack, .attack-cards 
+    .cards, .cards-attack
     {
-        flex-direction: column;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
         min-width: 330px;
         max-width: 335px;
         box-sizing: border-box;        
     }
-    .buttons-attack
+    .attack-cards
     {
-        min-width: 310px;
+        min-width: 330px;
+        max-width: 335px;
+        box-sizing: border-box;
     }
 }
