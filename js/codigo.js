@@ -1,4 +1,3 @@
-
 // FUNCTIONS: startGame() - selectPetPlayer() - printMessageFinal(finalResult) 
 const buttonPetPlayer = document.getElementById('button-pet-select')
 const sectionSelectAttack = document.getElementById('select-attack')
@@ -10,6 +9,9 @@ let attackOptions
 let inputKapikat
 let inputHornybug
 let inputHipochad
+let inputLokilook
+let inputSweetyti
+let inputChascosa
 
 // FUNCTIONS: selectPetPlayer()
 const sectionSelectPet = document.getElementById('select-pet')
@@ -25,13 +27,10 @@ let indexPlayerAttack
 let indexEnemyAttack
 
 // FUNCTIONS: combat()
-const spanWinsPlayer = document.getElementById('health-player')
-const spanWinsEnemy = document.getElementById('health-enemy')
+const spanWinsPlayer = document.getElementById('victories-player')
+const spanWinsEnemy = document.getElementById('victories-enemy')
 let attackPlayerSelected = []
 let attackEnemySelected = []
-let attackResult
-let healthPlayer = 3
-let healthEnemy = 3
 let winsPlayer = 0
 let winsEnemy = 0
 
@@ -54,19 +53,22 @@ let axiemons = []
 // CLASS DEFINITION
 class Axiemon
 {
-    constructor(name, picture, health)
+    constructor(name, picture, victories)
     {
         this.name = name
         this.picture = picture
-        this.health = health
-        this.attacks = []               // LITERAL OBJECT (NOT DECLARED ABOVE AT FUNCTION LVL)
+        this.victories = victories
+        this.attacks = []                       // LITERAL OBJECT (NOT DECLARED ABOVE AT FUNCTION LVL)
     }
 }
 
 // CLASS OBJECTS DEFINITION
-let hipochad = new Axiemon('Hipochad', './assets/axie-full-transparent7.png', 5)
-let kapikat = new Axiemon('Kapikat', './assets/axie-full-transparent.png', 5)
+let hipochad = new Axiemon('Hipochad', './assets/axie-full-transparent1.png', 5)
+let kapikat = new Axiemon('Kapikat', './assets/axie-full-transparent2.png', 5)
 let hornybug = new Axiemon('Hornybug', './assets/axie-full-transparent3.png', 5)
+let lokilook = new Axiemon('Lokilook', './assets/axie-full-transparent4.png', 5)
+let sweetyti = new Axiemon('Sweetyti', './assets/axie-full-transparent5.png', 5)
+let chascosa = new Axiemon('Chascosa', './assets/axie-full-transparent6.png', 5)
 
 // LITERAL OBJECTS PUSHED(LOADED) INTO THE ARRAY 'attacks'
 hipochad.attacks.push (
@@ -90,8 +92,29 @@ hornybug.attacks.push (
     { name: '💧', id: 'button-water' },
     { name: '🌱', id: 'button-earth' },
 )
+lokilook.attacks.push (
+    { name: '💧', id: 'button-water' },
+    { name: '💧', id: 'button-water' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '🔥', id: 'button-fire' },
+)
+sweetyti.attacks.push (
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '💧', id: 'button-water' },
+    { name: '💧', id: 'button-water' },
+    { name: '🌱', id: 'button-earth' },
+)
+chascosa.attacks.push (
+    { name: '🌱', id: 'button-earth' },
+    { name: '🌱', id: 'button-earth' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '💧', id: 'button-water' },
+    )
 // CLASS OBJECTS PUSHED(LOADED) INTO THE ARRAY 'axiemons'
-axiemons.push (hipochad, kapikat, hornybug)
+axiemons.push (hipochad, kapikat, hornybug, lokilook, sweetyti, chascosa)
 
 function startGame()
 {   
@@ -116,13 +139,16 @@ function startGame()
 
         inputHipochad = document.getElementById('Hipochad')
         inputKapikat = document.getElementById('Kapikat')
-        inputHornybug = document.getElementById('Hornybug')        
+        inputHornybug = document.getElementById('Hornybug')
+        inputLokilook = document.getElementById('Lokilook')
+        inputSweetyti = document.getElementById('Sweetyti')
+        inputChascosa = document.getElementById('Chascosa')
     })
 }
 function selectPetPlayer()
 {
     let petsChecked = false
-    const inputs = [ inputHipochad, inputKapikat, inputHornybug ]
+    const inputs = [ inputHipochad, inputKapikat, inputHornybug, inputLokilook, inputSweetyti, inputChascosa ]
 
     for (i = 0; i < inputs.length; i++)
     {        
@@ -172,14 +198,14 @@ function showAttacks(attacks)
     buttonEarth = document.getElementById('button-earth') 
     buttons = document.querySelectorAll('.attack-buttons')      
 }
-function selectPetEnemy()                   // AUTO SELECT A RANDOM ENEMY PET + SHOW IT IN HTML
+function selectPetEnemy()                               // AUTO SELECT A RANDOM ENEMY PET + SHOW IT IN HTML
 {
     let randomPet = randomNum(0, axiemons.length - 1)
     spanPetEnemy.innerHTML = axiemons[randomPet].name
     attacksEnemyAvailable = axiemons[randomPet].attacks
     attackSequence()
 }
-function attackSequence()                   // ATTACK BUTTONS ACTIVATION (AFTER ENEMY PET SELECTION) 
+function attackSequence()                               // ATTACK BUTTONS ACTIVATION (AFTER ENEMY PET SELECTION) 
 {
     buttons.forEach
     (
@@ -207,6 +233,8 @@ function attackSequence()                   // ATTACK BUTTONS ACTIVATION (AFTER 
                         console.log(attackPlayerSelected)
                         button.style.background = '#112f58'
                     }
+                    // BUTTONS DISABLED AFTER BEING CLICKED
+                    button.disabled = true
                     attackEnemyRandom() 
                 }
             )
@@ -224,7 +252,6 @@ function attackEnemyRandom()
     else
     { attackEnemySelected.push('EARTH') }
     console.log(attackEnemySelected)
-    console.log(attacksEnemyAvailable)
     attacksEnemyAvailable.splice(attackRandom, 1)                        // .splice REMOVES 1 ARRAY ELEMENT: (attackRandom, 1) == (POSITION, QUANTITY)
     startCombat()
 }
@@ -247,41 +274,37 @@ function combat()
         if (attackPlayerSelected[index] === attackEnemySelected[index])
         {
             indexBothEnemies(index, index)
-            attackResult = 'DRAW'
         }
         else if (attackPlayerSelected[index] === 'FIRE' && attackEnemySelected[index] === 'EARTH' || attackPlayerSelected[index] === 'WATER' && attackEnemySelected[index] === 'FIRE' || attackPlayerSelected[index] === 'EARTH' && attackEnemySelected[index] === 'WATER')
         {
             indexBothEnemies(index, index)
-            attackResult = 'YOU WIN !!!'
             winsPlayer++
         }
         else
         {
             indexBothEnemies(index, index)
-            attackResult = 'YOU LOSE !!!'
             winsEnemy++
         }    
-        printMessage(attackResult)           
+        printMessage()           
     }
 
     victoryOrDefeat() 
-    // SHOW & UPDATE THE LIVES COUNTER   
+    // SHOW & UPDATE THE VICTORIES COUNTER   
     spanWinsPlayer.innerHTML = winsPlayer + "🏆" 
     spanWinsEnemy.innerHTML = winsEnemy + "🏆" 
 }
-function printMessage(combatResult)                     // PRINT MESSAGE (ROUNDS)
+function printMessage()                     // PRINT MESSAGE (ROUNDS)
 {
     let newPlayerAttack = document.createElement("p")       // CREATES A <p> ELEMENT FOR PLAYER ATTACKS 
     let newEnemyAttack = document.createElement("p")        // CREATES A <p> ELEMENT FOR ENEMY'S ATTACKS
-
-    combatNotification.innerHTML = combatResult             // CREATES THE TEXT INSIDE THE ALREADY CREATED <P> IN THE HTML         
+      
     newPlayerAttack.innerHTML = indexPlayerAttack           // CREATES THE TEXT IN THE <p> ELEMENT FOR PLAYER ATTACKS 
     newEnemyAttack.innerHTML = indexEnemyAttack             // CREATES THE TEXT IN THE <p> ELEMENT FOR ENEMY'S ATTACKS
 
     playerAttacks.appendChild(newPlayerAttack)
     enemyAttacks.appendChild(newEnemyAttack)
 }
-function victoryOrDefeat()                          // CHECK PLAYERS LIVES 
+function victoryOrDefeat()                              // CHECK PLAYERS LIVES 
 {
     if (winsPlayer < winsEnemy)
     {
@@ -293,18 +316,13 @@ function victoryOrDefeat()                          // CHECK PLAYERS LIVES
     }
     else
     {
-        printMessageFinal("⚖ DRAW! ⚖")
+        printMessageFinal("🎭 DRAW! 🎭")
     }
 }
-function printMessageFinal(finalResult)     // PRINT MESSAGE (FINAL)
+function printMessageFinal(finalResult)                 // PRINT MESSAGE (FINAL)
 {
     // <P> CREATION INSIDE MESSAGE SECTION WITH TEXT FROM 'victoryOrDefeat()' FUNCTION    
     combatNotification.innerHTML = finalResult
-
-    // BUTTONS DISABLED AFTER GAME IS OVER
-    buttonFire.disabled = true
-    buttonWater.disabled = true
-    buttonEarth.disabled = true
 
     // SHOW RESTART SECTION & ACTIVATE BUTTON
     sectionRestart.style.display = 'block'
@@ -321,21 +339,3 @@ function randomNum(min, max)
 
 // CALLS 'startGame()' FUNCTION (AFTER ALL HTML IS LOADED)
 window.addEventListener('load', startGame)
-
-
-
-/*
-function attackEnemyRandom()
-{
-    let attackRandom = randomNum(1,attacksEnemyAvailable.length)     // MAX ENEMY ATTACKS
-
-    if (attackRandom == 1 || attackRandom == 2)
-    { attackEnemySelected.push('FIRE') }
-    else if (attackRandom == 3 || attackRandom == 4)
-    { attackEnemySelected.push('WATER') }
-    else
-    { attackEnemySelected.push('EARTH') }
-    console.log(attackEnemySelected)
-    combat()
-}
-*/
